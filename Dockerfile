@@ -4,4 +4,4 @@ RUN pip install discord
 
 COPY . .
 
-RUN python PythonApplication1.py
+CMD python PythonApplication1.py
