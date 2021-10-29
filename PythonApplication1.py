@@ -17,6 +17,11 @@ array2 = ['https://tenor.com/view/dota-hero-shadow-fiend-freedom-gif-22676123',
 
 
 @bot.event
+async def on_ready(event):
+    print('сф вышел в мид)')
+
+
+@bot.event
 async def on_message(message):
     if not message.author.bot:
         print(f'{message.author}: {message.content}')

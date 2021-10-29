@@ -1,0 +1,36 @@
+# This workflow will build a Java project with Gradle
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Docker login
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Docker build
+        run: docker build -t ghcr.io/lanayyya/zxc-bot:latest .
+      - name: Docker push
+        run: docker build -t ghcr.io/lanayyya/zxc-bot:latest .
+      - name: Helm Lint
+        uses: WyriHaximus/github-action-helm3@v2
+        with:
+          exec: helm lint ./zxc-bot && helm dep update ./zxc-bot
+      - name: Helm install
+        uses: WyriHaximus/github-action-helm3@v2
+        with:
+          exec: helm upgrade --install zxc-bot zxc-bot --set discordToken="${{ secrets.DISCORD }}"
+          kubeconfig: '${{ secrets.KUBECONFIG }}'
