@@ -1,6 +1,7 @@
 import discord
 import random
 import re
+import os
 
 bot = discord.Client()
 regex = r'( ?({t}) )|(^({t})$)|( ({t}) ?)'.format(t='zxc|dota|дота|доту|ZXC|1000\-7|сф|сфе|душа|души')
@@ -24,4 +25,4 @@ async def on_message(message):
             await message.channel.send(random.choice(array2))
 
 
-bot.run('OTAzMzc0NzkzNzk2MTA4MzQ4.YXsDVg.uYDvj2yDKgRK5dtJRLfPQpJ2Pbk')
+bot.run(os.getenv('DISCORDTOKEN'))
